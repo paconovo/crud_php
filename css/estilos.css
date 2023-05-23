@@ -1,14 +1,14 @@
-<?php
-	if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
-		$uri = 'https://';
-	} else {
-		$uri = 'http://';
-	}
-	
-	echo 'prueba';
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #41a0e2;
+}
 
-	$uri .= $_SERVER['HTTP_HOST'];
-	header('Location: '.$uri.'/dashboard/');
-	exit;
-?>
-Something is wrong with the XAMPP installation :-(
+.fondo {
+	width: 1270px;
+	padding: 20px;
+	background-color: #fff;	
+	border: 1px solid #ccc;	
+	border-radius: 5px;
+	margin-top: 25px;	
+}

@@ -1,14 +1,5 @@
 <?php
-	if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
-		$uri = 'https://';
-	} else {
-		$uri = 'http://';
-	}
-	
-	echo 'prueba';
-
-	$uri .= $_SERVER['HTTP_HOST'];
-	header('Location: '.$uri.'/dashboard/');
-	exit;
+	$usuario = "root";
+	$password = "";
+	$conexion = new PDO("mysql:host=localhost; dbname=crud_usuarios", $usuario, $password)
 ?>
-Something is wrong with the XAMPP installation :-(

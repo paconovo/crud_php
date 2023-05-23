@@ -17,7 +17,7 @@
     <title>CRUD PHP</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container fondo">
 		<h1 class="text-center">CRUD PHP</h1>
 
 		<div class="row">
