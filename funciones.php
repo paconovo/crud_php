@@ -24,6 +24,6 @@
 		$stmt = $conexion->prepare("SELECT * FROM usuarios");
 		$stmt->execute();
 		$resultado = $stmt->fetchAll();
-		return $smtm->rowCount();
+		return $stmt->rowCount();
 	}
 ?>

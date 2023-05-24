@@ -28,11 +28,11 @@
 	$datos = array();
 	$filtered_rows = $stmt->rowCount();
 
-	foreach(resultado as $fila) {
+	foreach($resultado as $fila) {
 		$imagen = '';
 		if($fila["imagen"] != '') {
-			$imagen = '<img src="img/' . $fila["imagen"] . '" class=img-thumbnail" 
-			width="50" height="50"';
+			$imagen = '<img src="img/' . $fila["imagen"] . '" class="img-thumbnail" 
+			width="50" height="35" />';
 		} else {
 			$imagen = '';
 		}
@@ -48,8 +48,8 @@
 		$sub_array[] = '<button type="button" name="editar" id="'. $fila["id"] . '" 
 		class="btn btn-warning btn-xs editar">Editar</button>';
 		$sub_array[] = '<button type="button" name="borrar" id="'. $fila["id"] . '" 
-		class="btn btn-warning btn-xs borrar">Borrar</button>';
-		$datos = $sub_array;
+		class="btn btn-danger btn-xs borrar">Borrar</button>';
+		$datos[] = $sub_array;
 	}
 
 	$salida = array(
