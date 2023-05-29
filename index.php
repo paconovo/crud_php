@@ -124,7 +124,27 @@
 					"targets":[0, 3, 4],
 					"orderable": false
 					},
-				]
+				],
+				"language": {
+					"decimal": "",
+					"emptyTable": "No hay registros",
+					"info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+					"infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+					"infoFiltered": "(Filtrado de _MAX_ total entradas)",
+					"infoPostFix": "",
+					"thousands": ",",
+					"lengthMenu": "Mostrar _MENU_ Entradas",
+					"loadingRecords": "Cargando...",
+					"processing": "Procesando...",
+					"search": "Buscar:",
+					"zeroRecords": "Sin resultados encontrados",
+					"paginate": {
+						"first": "Primero",
+						"last": "Ultimo",
+						"next": "Siguiente",
+						"previous": "Anterior"
+					}
+				}
 			});
 
 			$(document).on('submit', '#formulario', function(event){
@@ -133,14 +153,14 @@
 				var apellidos = $('#apellidos').val();
 				var telefono = $('#telefono').val();
 				var email = $('#email').val();
-				var extension = $('#imagen_usuario').val().split(',').pop().toLowerCase();
-				/* if(extension != '') {
+				var extension = $('#imagen_usuario').val().split('.').pop().toLowerCase();
+				if(extension != '') {
 					if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
 						alert('Formato de imagen inválido');
 						$('#imagen_usuario').val('');
 						return false;
 					}
-				} */
+				}
 
 				if(nombre != '' && apellidos != '' && email != '') {
 					$.ajax({
@@ -152,14 +172,60 @@
 						success: function(data){
 							alert(data);
 							$('#formulario')[0].reset();
-							$('#modalUsuario').modal.hide();
+							$('#modalUsuario').modal('hide');
 							dataTable.ajax.reload();
 						}
 					});
 				} else {
-					alert('alunos campos estan vacios');
+					alert('algunos campos estan vacios');
 				}
 			});
+
+			$(document).on('click', '.editar', function(){		
+				var id_usuario = $(this).attr("id");		
+				$.ajax({
+					url:"obtener_registro.php",
+					method:"POST",
+					data:{id_usuario:id_usuario},
+					dataType:"json",
+					success:function(data)
+					{
+						//console.log(data);				
+						$('#modalUsuario').modal('show');
+						$('#nombre').val(data.nombre);
+						$('#apellidos').val(data.apellidos);
+						$('#telefono').val(data.telefono);
+						$('#email').val(data.email);
+						$('.modal-title').text("Editar Usuario");
+						$('#id_usuario').val(id_usuario);
+						$('#imagen_subida').html(data.imagen_usuario);
+						$('#action').val("Editar");
+						$('#operacion').val("Editar");
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+					console.log(textStatus, errorThrown);
+					}
+				})
+	        });
+
+			$(document).on('click', '.borrar', function(){		
+				var id_usuario = $(this).attr("id");
+				
+				if(confirm("Está seguro de borrar este registro" + id_usuario)) {	
+					$.ajax({
+						url:"borrar.php",
+						method:"POST",
+						data:{id_usuario:id_usuario},
+						success:function(data)
+						{
+							alert(data);
+							dataTable.ajax.reload();
+						}
+					})
+				} else {
+					return false;
+				}
+	        });
 		});	
 	</script>
   </body>
